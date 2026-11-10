@@ -1,0 +1,35 @@
+{
+  "name": "disgit",
+  "version": "1.0.0",
+  "description": "A Cloudflare Worker which provides better GitHub->Discord webhook integration than the built-in Discord webhook executor.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JRoy/disgit.git"
+  },
+  "private": true,
+  "dependencies": {
+    "@cloudflare/workers-types": "^4.20250607.0",
+    "@octokit/openapi-webhooks-types": "^12.0.3",
+    "typescript": "^5.8.3",
+    "wrangler": "^4.19.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.30.1",
+    "selflare": "^1.1.2",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.1",
+    "prettier": "^3.6.2",
+    "prettier-plugin-organize-imports": "^4.1.0"
+  },
+  "scripts": {
+    "docker:build": "WRANGLER_SEND_METRICS=false wrangler deploy --dry-run --outdir .wrangler/dist && selflare compile --script .wrangler/dist/index.js",
+    "build": "selflare compile",
+    "start": "wrangler dev src/index.ts --local=true",
+    "docker": "wrangler dev index.ts --local=true",
+    "deploy": "wrangler deploy",
+    "check": "tsc"
+  }
+}

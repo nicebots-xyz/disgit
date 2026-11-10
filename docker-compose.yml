@@ -1,0 +1,19 @@
+services:
+    worker:
+        build: .
+        image: worker
+        environment:
+            - IGNORED_BRANCH_REGEX=${IGNORED_BRANCH_REGEX}
+            - IGNORED_BRANCHES=${IGNORED_BRANCHES}
+            - IGNORED_USERS=${IGNORED_USERS}
+            - IGNORED_PAYLOADS=${IGNORED_PAYLOADS}
+            - DEBUG_PASTE=${DEBUG_PASTE}
+        volumes:
+            - ./.storage/cache:/worker/cache
+        ports:
+            - "8080:8080"
+        healthcheck:
+            test: ["CMD", "wget", "-qO-", "http://localhost:8080/health"]
+            interval: 15s
+            timeout: 10s
+            retries: 3
